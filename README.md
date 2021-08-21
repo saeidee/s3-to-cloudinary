@@ -1,6 +1,6 @@
 ## Trek(S3 -> Cloudinary)
 
-__It is an implementation of migrating all of your media's from S3 to Cloudinary__
+__It is an implementation of migrating all of your media from S3 to Cloudinary__
 
 ### Usage
 
