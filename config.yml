@@ -1,0 +1,13 @@
+version: '1'
+
+buckets: []
+
+secrets:
+  cloudinary:
+    cloudName: ""
+    apiKey: ""
+    apiSecret: ""
+  aws:
+    accessKeyId: ""
+    secretAccessKey: ""
+
