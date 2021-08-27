@@ -12,6 +12,9 @@ After that update your keys in the config.yml and then since this project is a C
 foo@bar:~$ go run trek.go start
 ```
 
+After migration finished, you will have an Excel log file called s3-to-cloudinary-logs.xlsx, you can see the errors, total assets and total sizes
+uploads.
+
 ### Contributors
 
 - __Richard Bajuzik__
