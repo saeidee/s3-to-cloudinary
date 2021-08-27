@@ -2,6 +2,8 @@ version: '1'
 
 buckets: []
 
+maxKeys: 25
+
 secrets:
   cloudinary:
     cloudName: ""

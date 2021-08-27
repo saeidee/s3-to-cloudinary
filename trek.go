@@ -4,9 +4,11 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/cloudinary/cloudinary-go"
 	"github.com/saeidee/trek/support"
 	"github.com/thatisuday/commando"
+	"github.com/xuri/excelize/v2"
 	"log"
 	"time"
 )
@@ -60,17 +62,21 @@ func main() {
 				log.Fatalf("Unble to connect to AWS, error: %v\n", err)
 			}
 
-			logChannel := make(chan interface{})
-			migrator := support.NewMigrator(sess, cld)
-
 			startedAt := time.Now()
+			logChannel := make(chan support.Log)
+			migrator := support.NewMigrator(s3.New(sess), cld)
+			logger := support.NewLogger(excelize.NewFile())
+
 			log.Println("Migration started! 🔥🔥🔥")
 
 			go migrator.Migrate(config, logChannel)
 
 			for l := range logChannel {
-				log.Println(l)
+				logger.Log(l)
+				log.Println(l.Error)
 			}
+
+			_ = logger.SaveFile("s3-to-cloudinary-logs.xlsx")
 
 			log.Printf("Migration done! 🎉🎉🎉\n Duration: %v seconds", time.Since(startedAt).Seconds())
 		})
