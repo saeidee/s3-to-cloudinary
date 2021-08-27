@@ -6,7 +6,7 @@ __It is an implementation of migrating all of your media from S3 to Cloudinary, 
 
 You need to enable lazy loading and map your buckets in your Cloudinary dashboard you can find more information about lazy migration here https://cloudinary.com/documentation/fetch_remote_images#auto_upload_remote_files.
 
-After that update your keys in the config.yml and then since this project is a CLI tool, so you can run the start command to start migration.
+After that update your keys in the config.yml and then since this project is a CLI tool, so you can run the start command to start migration. By default, it is listing 25 bucket object per request you can increase it from config.yml file, aws has limits up to 1000 keys per request.
 
 ```console
 foo@bar:~$ go run trek.go start

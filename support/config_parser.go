@@ -10,6 +10,7 @@ type configParser struct{}
 type Config struct {
 	Version string   `yaml:"version"`
 	Buckets []string `yaml:"buckets"`
+	MaxKeys int64    `yaml:"maxKeys"`
 	Secrets struct {
 		Cloudinary struct {
 			CloudName string `yaml:"cloudName"`

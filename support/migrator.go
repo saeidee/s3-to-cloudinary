@@ -25,14 +25,13 @@ func NewMigrator(svg *s3.S3, cld *cloudinary.Cloudinary) *migrator {
 
 func (m *migrator) Migrate(config *Config, logChannel chan Log) {
 	var token *string = nil
-	var maxKeys int64 = 25
 
 	for _, bucket := range config.Buckets {
 		for {
 			resp, err := m.listObjects(&s3.ListObjectsV2Input{
 				Bucket:            &bucket,
 				ContinuationToken: token,
-				MaxKeys:           &maxKeys,
+				MaxKeys:           &config.MaxKeys,
 			})
 			if err != nil {
 				logChannel <- Log{
