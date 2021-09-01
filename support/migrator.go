@@ -40,7 +40,7 @@ func (m *migrator) Migrate(config *Config, logChannel chan Log) {
 					Error:  err.Error(),
 				}
 
-				continue
+				break
 			}
 
 			token = resp.NextContinuationToken
