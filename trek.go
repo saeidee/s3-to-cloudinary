@@ -73,7 +73,7 @@ func main() {
 
 			for l := range logChannel {
 				logger.Log(l)
-				log.Println(l.Error)
+				log.Println(l.Bucket, l.Item, l.Error)
 			}
 
 			_ = logger.SaveFile("s3-to-cloudinary-logs.xlsx")
