@@ -6,10 +6,11 @@ maxKeys: 25
 
 secrets:
   cloudinary:
-    cloudName: ""
-    apiKey: ""
-    apiSecret: ""
+    cloudName:
+    apiKey:
+    apiSecret:
+    uploadPrefix:
   aws:
-    accessKeyId: ""
-    secretAccessKey: ""
+    accessKeyId:
+    secretAccessKey:
 

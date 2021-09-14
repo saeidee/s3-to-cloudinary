@@ -1,11 +1,7 @@
 package main
 
 import (
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/cloudinary/cloudinary-go"
 	"github.com/saeidee/trek/support"
 	"github.com/thatisuday/commando"
 	"github.com/xuri/excelize/v2"
@@ -41,23 +37,14 @@ func main() {
 				log.Fatalf("Unable to read the file with error: %v", err)
 			}
 
-			cld, err := cloudinary.NewFromParams(
-				config.Secrets.Cloudinary.CloudName,
-				config.Secrets.Cloudinary.ApiKey,
-				config.Secrets.Cloudinary.ApiSecret,
-			)
+			factory := support.NewFactory(config)
+
+			cld, err := factory.NewCloudinaryInstance()
 			if err != nil {
 				log.Fatalf("Unable to connect to Cloudinary, error: %v\n", err)
 			}
 
-			sess, err := session.NewSession(&aws.Config{
-				Region: aws.String("eu-west-1"),
-				Credentials: credentials.NewStaticCredentials(
-					config.Secrets.AWS.AccessKeyID,
-					config.Secrets.AWS.SecretAccessKey,
-					"",
-				),
-			})
+			sess, err := factory.NewAWSSession()
 			if err != nil {
 				log.Fatalf("Unble to connect to AWS, error: %v\n", err)
 			}

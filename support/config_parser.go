@@ -13,9 +13,10 @@ type Config struct {
 	MaxKeys int64    `yaml:"maxKeys"`
 	Secrets struct {
 		Cloudinary struct {
-			CloudName string `yaml:"cloudName"`
-			ApiKey    string `yaml:"apiKey"`
-			ApiSecret string `yaml:"apiSecret"`
+			CloudName    string `yaml:"cloudName"`
+			ApiKey       string `yaml:"apiKey"`
+			ApiSecret    string `yaml:"apiSecret"`
+			UploadPrefix string `yaml:"uploadPrefix"`
 		}
 		AWS struct {
 			AccessKeyID     string `yaml:"accessKeyId"`
@@ -39,4 +40,8 @@ func (cp *configParser) Parse(filename string) (*Config, error) {
 	err = yaml.Unmarshal(source, &cfg)
 
 	return &cfg, err
+}
+
+func (c *Config) HasUploadPrefix() bool {
+	return len(c.Secrets.Cloudinary.UploadPrefix) != 0
 }
