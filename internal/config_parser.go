@@ -1,4 +1,4 @@
-package support
+package internal
 
 import (
 	"gopkg.in/yaml.v2"

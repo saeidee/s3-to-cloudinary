@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/saeidee/trek/support"
+	"github.com/saeidee/trek/internal"
 	"github.com/thatisuday/commando"
 	"github.com/xuri/excelize/v2"
 	"log"
@@ -31,13 +31,13 @@ func main() {
 		Register("start").
 		SetShortDescription("starting migration for your media").
 		SetAction(func(args map[string]commando.ArgValue, flags map[string]commando.FlagValue) {
-			configParser := support.NewConfigParser()
+			configParser := internal.NewConfigParser()
 			config, err := configParser.Parse("config.yml")
 			if err != nil {
 				log.Fatalf("Unable to read the file with error: %v", err)
 			}
 
-			factory := support.NewFactory(config)
+			factory := internal.NewFactory(config)
 
 			cld, err := factory.NewCloudinaryInstance()
 			if err != nil {
@@ -50,9 +50,9 @@ func main() {
 			}
 
 			startedAt := time.Now()
-			logChannel := make(chan support.Log)
-			migrator := support.NewMigrator(s3.New(sess), cld)
-			logger := support.NewLogger(excelize.NewFile())
+			logChannel := make(chan internal.Log)
+			migrator := internal.NewMigrator(s3.New(sess), cld)
+			logger := internal.NewLogger(excelize.NewFile())
 
 			log.Println("Migration started! 🔥🔥🔥")
 
